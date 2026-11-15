@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[DefaultExecutionOrder(50)]
 public class LockXRotation : MonoBehaviour
 {
     void LateUpdate() {
