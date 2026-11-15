@@ -8,6 +8,7 @@ public class CharacterDialogue : MonoBehaviour {
 	public TMP_Text text_box;
 
 	[Header("Acting")]
+	public float start_delay      = 0.5F;
 	public float chars_per_second = 40F;
 	public float pause_short      = 0.15F;
 	public float pause_long       = 0.35F;
@@ -49,7 +50,6 @@ public class CharacterDialogue : MonoBehaviour {
 	string[]  lines;
 	int       line_index;
 	int       page;
-	bool      skip;
 	Coroutine routine;
 	int       vowel_count;
 	char      prev_char;
@@ -71,17 +71,12 @@ public class CharacterDialogue : MonoBehaviour {
 	void OnEnable() {
 		this.lines         = DialogueLoader.Load(this.gameObject.name);
 		this.line_index    = 0;
-		this.skip          = false;
 		this.text_box.text = "";
 		if (this.lines.Length == 0) {
 			return;
 		}
 		
 		this.ShowLine();
-	}
-
-	public void Next() {
-		this.skip = true;
 	}
 
 	void ShowLine() {
@@ -124,12 +119,10 @@ public class CharacterDialogue : MonoBehaviour {
 		this.text_box.pageToDisplay        = this.page;
 		this.text_box.maxVisibleCharacters = first;
 
-		for (int i = first; i <= last; ++i) {
-			if (this.skip) {
-				this.skip = false;
-				break;
-			}
+		if (this.line_index == 0 && this.page == 1)
+			yield return new WaitForSeconds(this.start_delay);
 
+		for (int i = first; i <= last; ++i) {
 			if (i > this.sentence_end)
 				this.FindSentence(text_info, i);
 			
@@ -143,13 +136,7 @@ public class CharacterDialogue : MonoBehaviour {
 		}
 		this.text_box.maxVisibleCharacters = last + 1;
 
-		float held = 0F;
-		while (held < this.page_hold && !this.skip) {
-			held += Time.deltaTime;
-			yield return null;
-		}
-		
-		this.skip = false;
+		yield return new WaitForSeconds(this.page_hold);
 		this.Advance();
 	}
 
