@@ -28,6 +28,11 @@ public class CharacterDialogue : MonoBehaviour {
 	public float breathiness   = 0.1F;
 	public float blip_length   = 0.09F;
 
+	[Header("Inflections")]
+	public float question_rise  = 0.25F;
+	public float exclaim_boost  = 0.15F;
+	public float exclaim_volume = 1.3F;
+
 	static readonly float[][] FORMANTS = {
 		new[] { 800F, 1150F, 2900F },  // a
 		new[] { 530F, 1840F, 2480F },  // e
@@ -48,6 +53,9 @@ public class CharacterDialogue : MonoBehaviour {
 	Coroutine routine;
 	int       vowel_count;
 	char      prev_char;
+	int       sentence_start;
+	int       sentence_end;
+	char      sentence_mark;
 
 	void Awake() {
 		if (!this.TryGetComponent(out this.voice))
@@ -80,6 +88,7 @@ public class CharacterDialogue : MonoBehaviour {
 		this.text_box.overflowMode = TextOverflowModes.Page;
 		this.text_box.text         = this.lines[this.line_index];
 		this.text_box.ForceMeshUpdate();
+		this.sentence_end = -1;
 		this.page = 1;
 		this.StartPage();
 	}
@@ -120,12 +129,15 @@ public class CharacterDialogue : MonoBehaviour {
 				this.skip = false;
 				break;
 			}
+
+			if (i > this.sentence_end)
+				this.FindSentence(text_info, i);
 			
 			this.text_box.maxVisibleCharacters = i + 1;
 			char c    = text_info.characterInfo[i].character;
 			char next = i < last ? text_info.characterInfo[i + 1].character : '\0';
 			if (this.IsVowel(c) && !this.IsVowel(this.prev_char) && ++this.vowel_count % this.blip_every == 0)
-				this.Blip(c);
+				this.Blip(c, i);
 			this.prev_char = c;
 			yield return new WaitForSeconds(this.Delay(c, next));
 		}
@@ -162,12 +174,25 @@ public class CharacterDialogue : MonoBehaviour {
 		return false;
 	}
 
-	void Blip(char c) {
+	void Blip(char c, int i) {
 		if (this.voice == null)
 			return;
 
-		this.voice.pitch = Random.Range(this.pitch_min, this.pitch_max);
-		this.voice.PlayOneShot(this.vowel_clips[this.VowelIndex(c)], this.blip_volume);
+		// this.voice.pitch = Random.Range(this.pitch_min, this.pitch_max);
+		float pitch  = Random.Range(this.pitch_min, this.pitch_max);
+		float volume = this.blip_volume;
+
+		float part = (float)(i - this.sentence_start) / Mathf.Max(1, this.sentence_end - this.sentence_start);
+
+		if (this.sentence_mark == '?') {
+			pitch *= 1F + this.question_rise * part * part;
+		} else if (this.sentence_mark == '!') {
+			pitch  *= 1F + this.exclaim_boost;
+			volume *= this.exclaim_volume;
+		}
+
+		this.voice.pitch = pitch;
+		this.voice.PlayOneShot(this.vowel_clips[this.VowelIndex(c)], volume);
 	}
 
 	int VowelIndex(char c) {
@@ -179,6 +204,22 @@ public class CharacterDialogue : MonoBehaviour {
 		}
 		// i and y
 		return 2; 
+	}
+
+	void FindSentence(TMP_TextInfo info, int i) {
+		this.sentence_start = i;
+		this.sentence_mark  = '\0';
+
+		int j = i;
+		for (; j < info.characterCount; ++j) {
+			char ch = info.characterInfo[j].character;
+			if (ch == '.' || ch == '!' || ch == '?') {
+				this.sentence_mark = ch;
+				break;
+			}
+		}
+
+		this.sentence_end = Mathf.Min(j, info.characterCount - 1);
 	}
 
 	AudioClip MakeVowel(int vowel) {

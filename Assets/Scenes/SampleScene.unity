@@ -631,6 +631,9 @@ MonoBehaviour:
   formant_shift: 1.15
   breathiness: 0.12
   blip_length: 0.08
+  question_rise: 0.3
+  exclaim_boost: 0.2
+  exclaim_volume: 1.3
 --- !u!1001 &28490955
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1951,6 +1954,9 @@ MonoBehaviour:
   formant_shift: 0.95
   breathiness: 0.3
   blip_length: 0.08
+  question_rise: 0.45
+  exclaim_boost: 0.3
+  exclaim_volume: 1.3
 --- !u!1001 &161180562
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3822,6 +3828,9 @@ MonoBehaviour:
   formant_shift: 1
   breathiness: 0.1
   blip_length: 0.09
+  question_rise: 0.25
+  exclaim_boost: 0.15
+  exclaim_volume: 1.3
 --- !u!1001 &400778491
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5722,6 +5731,9 @@ MonoBehaviour:
   formant_shift: 0.75
   breathiness: 0.15
   blip_length: 0.12
+  question_rise: 0.15
+  exclaim_boost: 0.05
+  exclaim_volume: 1.3
 --- !u!1001 &504835572
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11774,6 +11786,9 @@ MonoBehaviour:
   formant_shift: 0.85
   breathiness: 0.05
   blip_length: 0.1
+  question_rise: 0.1
+  exclaim_boost: 0.1
+  exclaim_volume: 1.5
 --- !u!1001 &1339055990
 PrefabInstance:
   m_ObjectHideFlags: 0
