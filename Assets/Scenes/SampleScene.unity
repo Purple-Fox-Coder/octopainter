@@ -617,6 +617,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterDialogue
   text_box: {fileID: 241217274}
+  chars_per_second: 40
+  pause_short: 0.15
+  pause_long: 0.35
+  page_hold: 0.075
+  should_hide: 0
 --- !u!1001 &28490955
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1923,6 +1928,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterDialogue
   text_box: {fileID: 241217274}
+  chars_per_second: 40
+  pause_short: 0.15
+  pause_long: 0.35
+  page_hold: 0.075
+  should_hide: 0
 --- !u!1001 &161180562
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3780,6 +3790,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterDialogue
   text_box: {fileID: 241217274}
+  chars_per_second: 40
+  pause_short: 0.15
+  pause_long: 0.35
+  page_hold: 0.075
+  should_hide: 0
 --- !u!1001 &400778491
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5666,6 +5681,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterDialogue
   text_box: {fileID: 241217274}
+  chars_per_second: 40
+  pause_short: 0.15
+  pause_long: 0.35
+  page_hold: 0.075
+  should_hide: 0
 --- !u!1001 &504835572
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11704,6 +11724,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterDialogue
   text_box: {fileID: 241217274}
+  chars_per_second: 40
+  pause_short: 0.15
+  pause_long: 0.35
+  page_hold: 0.075
+  should_hide: 0
 --- !u!1001 &1339055990
 PrefabInstance:
   m_ObjectHideFlags: 0
