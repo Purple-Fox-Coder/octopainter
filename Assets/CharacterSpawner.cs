@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 
 public class CharacterSpawner : MonoBehaviour {
 	public InputAction next_button;
+	public CanvasPainter canvas;
 
 	[Header("Fade")]
 	public float fade_out_time = 0.5F;
@@ -57,6 +58,8 @@ public class CharacterSpawner : MonoBehaviour {
 		// but you never know :)
 		this.index = (this.index + 1) % this.characters.Length;
 		this.characters[this.index].SetActive(true);
+
+		canvas.ClearCanvas();
 
 		yield return new WaitForSeconds(this.hold_time);
 		yield return this.Fade(1F, 0F, this.fade_in_time);
