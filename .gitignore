@@ -104,3 +104,7 @@ InitTestScene*.unity*
 
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
+
+# the stupid debug files
+/*_BackUpThisFolder_ButDontShipItWithYourGame
+/*_BurstDebugInformation_DoNotShip
