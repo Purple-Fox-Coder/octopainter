@@ -76,7 +76,7 @@ public class CanvasPainter : MonoBehaviour
         int extraSplats = Random.Range(6, 12);
         for (int i = 0; i < extraSplats; i++)
         {
-            var offset = Random.insideUnitCircle * size * Random.Range(0.6f, 1.6f);
+            var offset = Random.insideUnitCircle * size * Random.Range(0.1f, 0.6f);
             Paint(uv + offset, c, size * Random.Range(0.08f, 0.3f));
         }
         // paint dripping effect
@@ -85,11 +85,11 @@ public class CanvasPainter : MonoBehaviour
         {
             drips.Add(new Drip
             {
-                uv = uv + new Vector2(Random.Range(-0.4f, 0.4f) * size, 0),
+                uv = uv + new Vector2(Random.Range(-0.1f, 0.1f) * size, 0),
                 color = c,
                 size = size * Random.Range(0.06f, 0.12f),
-                speed = dripGravity * Random.Range(0.4f, 1f),
-                life = Random.Range(0.4f, 1.2f)
+                speed = dripGravity * Random.Range(0.2f, 0.6f),
+                life = Random.Range(0.2f, 0.8f)
             });
         }
     }
